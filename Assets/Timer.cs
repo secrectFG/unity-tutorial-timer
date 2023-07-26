@@ -7,7 +7,7 @@ public class Timer : MonoBehaviour
 {
     private float _duration = 1f;
 
-    private float timeScale = 1f;
+    private float _timeScale = 1f;
 
     private float _startTime = -1f;
 
@@ -15,7 +15,7 @@ public class Timer : MonoBehaviour
 
     private bool _isRunning = false;
 
-    public float TimeScale { get => timeScale; set => timeScale = value; }
+    public float TimeScale { get => _timeScale; set => _timeScale = value; }
     public float Duration { get => _duration; set => _duration = value; }
     public bool IsRunning { get => _isRunning; set => _isRunning = value; }
 
@@ -26,7 +26,7 @@ public class Timer : MonoBehaviour
     {
         if (_isRunning)
         {
-            _time += Time.deltaTime * timeScale;
+            _time += Time.deltaTime * _timeScale;
             var value = GetTimeRemaining();
             if (value <= 0f)
             {
