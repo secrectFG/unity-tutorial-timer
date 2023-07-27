@@ -28,7 +28,7 @@ public class Gun : MonoBehaviour
     private int bulletCount = 0;
 
     // Start is called before the first frame update
-    IEnumerator Start()
+    void Start()
     {
         _fireCycle = 1 / GameManager.Instance.FireRate;
         _time = _fireCycle;
@@ -38,11 +38,7 @@ public class Gun : MonoBehaviour
         }
         if(_fireMode == FireMode.Mode5)
         {
-            while (true)
-            {
-                DoFire();
-                yield return new WaitForSeconds(_fireCycle);
-            }
+            StartCoroutine(FireMode5());
         }
     }
 
@@ -89,7 +85,7 @@ public class Gun : MonoBehaviour
 
     void FireMode3()
     {
-        if(Time.time - _time > _fireCycle)
+        if(Time.time - _time >= _fireCycle)
         {
             _time = Time.time;
             DoFire();
@@ -99,10 +95,19 @@ public class Gun : MonoBehaviour
     void FireMode4()
     {
         var dt = Time.time - _time - _fireCycle;
-        if (dt > 0)
+        if (dt >= 0)
         {
             _time = Time.time - dt;
             DoFire();
+        }
+    }
+
+    IEnumerator FireMode5()
+    {
+        while (true)
+        {
+            DoFire();
+            yield return new WaitForSeconds(_fireCycle);
         }
     }
 
