@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -18,5 +19,14 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
         Application.targetFrameRate = targetFrameRate;
+    }
+
+    private void OnGUI()
+    {
+        if (GUILayout.Button("¿¨¶ÙÄ£Äâ"))
+        {
+            Thread.Sleep(2000);
+        }
+        GUILayout.Label("time:"+Time.time);
     }
 }
