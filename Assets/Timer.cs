@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Timer : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class Timer : MonoBehaviour
 
     private float _timeScale = 1f;
 
-    private float _startTime = -1f;
+    private float _startTime = 0f;
 
     private float _time = 0f;
 
@@ -19,7 +20,7 @@ public class Timer : MonoBehaviour
     public float Duration { get => _duration; set => _duration = value; }
     public bool IsRunning { get => _isRunning; set => _isRunning = value; }
 
-    public Action Complete { get; set; }
+    public UnityEvent OnComplete;
 
     // Update is called once per frame
     void Update()
@@ -31,7 +32,7 @@ public class Timer : MonoBehaviour
             if (value <= 0f)
             {
                 _isRunning = false;
-                Complete?.Invoke();
+                OnComplete?.Invoke();
             }
         }
     }
@@ -44,7 +45,7 @@ public class Timer : MonoBehaviour
 
     public float GetTimeElapsed()
     {
-        return GetTime() - _startTime;
+        return _isRunning ? GetTime() - _startTime : 0;
     }
 
     public float GetTimeRemaining()

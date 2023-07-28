@@ -21,10 +21,10 @@ public class Test : MonoBehaviour
         if (GUI.Button(new Rect(10, 60, 100, 50), "¼ÓËÙBuff"))
         {
             _timer.TimeScale = 3;
-            _timer.Complete = () =>
+            _timer.OnComplete.AddListener(() =>
             {
                 _timer.TimeScale = 1;
-            };
+            });
         }
 
     }
